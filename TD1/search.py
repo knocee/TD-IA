@@ -145,7 +145,7 @@ def depth_first_search(
     """Return a path using Depth-First Search."""
     parents = {start: None}
     visited = {start}
-    unvisited_neighbors = deque([start])
+    unvisited_neighbors = [start]
 
     while unvisited_neighbors:
         current = unvisited_neighbors.pop()
@@ -157,5 +157,5 @@ def depth_first_search(
             if state not in visited:
                 visited.add(state)
                 parents[state] = current
-                unvisited_neighbors.appendleft(state)                
+                unvisited_neighbors.append(state)                
     return []
