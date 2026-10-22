@@ -151,9 +151,7 @@ def alphabeta(board, depth=6):
                 alpha = max(alpha,value)
             else:
                 beta = min(beta,value)
-                trace.update(node_id, score=best_score,
-                alpha=alpha if math.isfinite(alpha) else None,
-                beta=beta if math.isfinite(beta) else None)
+            trace.update(node_id, score=best_score,alpha=alpha if math.isfinite(alpha) else None,beta=beta if math.isfinite(beta) else None)
 
             # TODO 6: Apply the pruning condition.
             if alpha >= beta:
@@ -257,7 +255,7 @@ def mcts(board, num_simulations=1000, exploration=math.sqrt(2), seed=None):
             # Evaluate from the perspective of the player who entered this node.
             node.visits += 1
             previous_player = _other(node.player_to_move)
-            reward = 1 if winner == rollout_player else 0.5 if winner != rollout_player else 0
+            reward = 0.5 if winner is None else 1 if winner == previous_player else 0
             node.total_reward += reward
             trace.update(node.trace_id, visits=node.visits,
                          mean_reward=round(node.total_reward / node.visits, 4))
